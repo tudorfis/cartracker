@@ -1,0 +1,130 @@
+<div id="shop">
+
+    <!-- PAGE TITLE -->
+    <header id="page-title">
+        <div class="container">
+            <h1>Sign UP</h1>
+
+            <ul class="breadcrumb">
+                <li><a href="/#/">Home</a></li>
+                <li class="active">Sign UP</li>
+            </ul>
+        </div>
+    </header>
+    <section class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Create <strong>Account</strong></h2>
+                <div class="alert alert-success" ng-show="register_complete">
+                    <i class="fa fa-check-circle"></i>
+                    <strong>Account successfully created!</strong> Check your E-mail Address!
+                </div>
+                <div class="alert alert-danger" ng-show="something_went_wrong">
+                    <i class="fa fa-frown-o"></i>
+                    <strong>Email</strong> already registered, please try different email.
+                </div>
+                <form class="white-row" method="post" ng-submit="register()" name="registerFrm" novalidate ng-hide="register_complete">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label>Name*</label>
+                                <input type="text" required ng-model="register_info.name" name="name" class="form-control" autofocus>
+                                <div ng-messages="registerFrm.name.$error" role="alert" multiple ng-if="registerFrm.$submitted">
+                                    <div ng-message-exp="['required']" class="message-alert">* Please enter name.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Surname*</label>
+                                <input type="text" required ng-model="register_info.surname" name="surname" class="form-control">
+                                <div ng-messages="registerFrm.surname.$error" role="alert" multiple ng-if="registerFrm.$submitted">
+                                    <div ng-message-exp="['required']" class="message-alert">* Please enter surname.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label>Email*</label>
+                                <input type="email" required ng-model="register_info.mail" name="mail" class="form-control">
+                                <div ng-messages="registerFrm.mail.$error" role="alert" multiple ng-if="registerFrm.$submitted">
+                                    <div ng-message-exp="['required']" class="message-alert">* Please enter valid email address.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label>Password*</label>
+                                <input type="password" required ng-model="register_info.password" name="password" class="form-control">
+                                <div ng-messages="registerFrm.password.$error" role="alert" multiple ng-if="registerFrm.$submitted">
+                                    <div ng-message-exp="['required']" class="message-alert">* Please enter password.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Re-enter Password*</label>
+                                <input type="password" required ng-model="register_info.c_password" name="c_password" class="form-control">
+                                <div ng-messages="registerFrm.c_password.$error" role="alert" multiple ng-if="registerFrm.$submitted">
+                                    <div ng-message-exp="['required']" class="message-alert">* Please enter confirmation.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alert alert-danger" ng-show="password_dont_match">
+                        <i class="fa fa-frown-o"></i>
+                        <strong>Password</strong> do not match!
+                    </div>
+                    <!--ng-disabled="registerFrm.$invalid"-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary pull-right push-bottom" ng-disabled="registerFrm.$invalid" data-loading-text="Loading...">
+                                Sign Up
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- /REGISTER -->
+
+            <!-- WHY? -->
+            <div class="col-md-6">
+
+                <h2>Why to register?</h2>
+
+                <div class="white-row">
+
+                    <h4>Registration is fast, easy, and free.</h4>
+
+                    <p>Once you're registered, you can:</p>
+                    <ul class="list-icon check">
+                        <li>Buy, sell, and interact with other members.</li>
+                        <li>Save your favorite searches and get notified.</li>
+                        <li>Watch the status of up to 200 items.</li>
+                        <li>View your Atropos information from any computer in the world.</li>
+                        <li>Connect with the Atropos community.</li>
+                    </ul>
+
+                    <hr class="half-margins" />
+
+                    <p>
+                        Already have an account?
+                        <a href="/#/login">Click to Sign In</a>
+                    </p>
+                </div>
+
+                <div class="white-row">
+                    <h4>Contact Customer Support</h4>
+                    <p>
+                        If you're looking for more help or have a question to ask, please <a href="/#/contact">contact us</a>.
+                    </p>
+                </div>
+
+            </div>
+            <!-- /WHY? -->
+
+        </div>
+
+    </section>
+
+</div>

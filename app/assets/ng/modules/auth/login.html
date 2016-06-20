@@ -1,0 +1,88 @@
+<div id="shop">
+
+    <!-- PAGE TITLE -->
+    <header id="page-title">
+        <div class="container">
+            <h1>Sign In</h1>
+
+            <ul class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Sign In</li>
+            </ul>
+        </div>
+    </header>
+    <section class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Sign <strong>In</strong></h2>
+                <form class="white-row" ng-submit="login()" name="loginFrm">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Email or username</label>
+                                <input type="text" ng-model="login_info.username" name="username" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" ng-model="login_info.password" name="password" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alert alert-danger" ng-show="invalid_login">
+                        <i class="fa fa-frown-o"></i>
+                        Wrong <strong>credentials</strong> please try again!
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <span class="remember-box checkbox">
+                                <label for="rememberme">
+                                    <input type="checkbox" id="rememberme" name="rememberme">Remember Me
+                                </label>
+                            </span>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary pull-right" data-loading-text="Loading..." ng-disabled="loginFrm.$invalid">
+                                Sign In
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- /LOGIN -->
+
+            <!-- PASSWORD -->
+            <div class="col-md-6">
+                <h2>Forgot <strong>Password</strong>?</h2>
+                <div class="white-row">
+                    <p>Lid est laborum dolo rumes fugats untras. Etharums ser quidem rerum facilis dolores nemis omnis fugats vitaes nemo.</p>
+
+                    <!-- password form -->
+                    <label>Type your E-mail Address</label>
+                    <form class="input-group" ng-submit="forgotPassword()" name="forgotPasswordFrm" ng-hide="email_sent">
+                        <input type="email" class="form-control" ng-model="forgot_password_info.email" name="email" placeholder="E-mail Address" required>
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary" ng-disabled="forgotPasswordFrm.$invalid">SEND</button>
+                        </span>
+                    </form>
+                    <div class="alert alert-danger" ng-show="email_not_sent" style="margin-top: 15px;">
+                        <i class="fa fa-frown-o"></i>
+                        <strong>E-mail Address</strong> not found!
+                    </div>
+                    <div class="alert alert-success" ng-show="email_sent">
+                        <i class="fa fa-check-circle"></i>
+                        <strong>New Password Sent!</strong> Check your E-mail Address!
+                    </div>
+                </div>
+            </div>
+            <!-- /PASSWORD -->
+
+        </div>
+        <p class="white-row">
+            Don't have an account yet? <a href="/#/register">Click to create one</a>, it's free!
+        </p>
+    </section>
+</div>

@@ -1,0 +1,30 @@
+<div class="pt-tab col-md-12">
+    <form class="form-inline col-md-12" ng-submit="searchAddress();">
+        <div class="form-group col-md-2">
+            <a href="" class="btn btn-default" ng-click="saveHomeArea()">
+                <i class="fa fa-save"></i> Save
+            </a>
+        </div>
+        <div class="form-group col-md-8">
+            <input
+               type="text" class="form-control" placeholder="Type city, zip or address here.." autocomplete="off"
+               ng-model="home_area_info.address" name="address" id="address" style="width: 100%;">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" ng-disabled="home_area_info.address == ''">
+                <i class="fa fa-search"></i> Search Place
+            </button>
+        </div>
+    </form>
+    <div class="clearfix"></div>
+    <hr style="margin: 25px 0;">
+    <div class="alert alert-success" ng-show="update_home_area">
+        <i class="fa fa-check-circle"></i>
+        <strong>Successfully</strong> saved new address and coordinates!
+    </div>
+    <div class="alert alert-danger" ng-show="update_home_area_error">
+        <i class="fa fa-frown-o"></i>
+        <strong>Oops!</strong> Something wen't wrong!
+    </div>
+    <div id="home_area_maps" style="height: 600px; width: 100%;"></div>
+</div>

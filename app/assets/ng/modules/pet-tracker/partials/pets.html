@@ -1,0 +1,126 @@
+<div class="pt-tab col-md-12" ng-controller="PetTrackerCtrl">
+    <div class="pet-select" ng-show="pets.length > 1">
+        <p style="margin: 5px 0;">Select pet</p>
+        <ul class="list-inline">
+            <li ng-repeat="pet in pets">
+                <a href="" ng-click="setPetInfo(pet)" ng-class="{'btn btn-primary': pet.id == $root.pet_info.id}">
+                    {{pet.name}}
+                </a>
+            </li>
+        </ul>
+        <a class="btn btn-default pull-right" ng-click="cancelEditPet()" ng-show="$root.show_pet_edit" style="margin-left: 15px;">
+            <i class="fa fa-map-marker"></i> Map
+        </a>
+        <a class="btn btn-primary pull-right" ng-click="addNewPet()">
+            <i class="fa fa-plus"></i> Add new pet
+        </a>
+    </div>
+    <hr style="margin: 30px 0;">
+    <div class="pet-edit">
+        <div class="alert alert-success" ng-show="update_pet_success">
+            <i class="fa fa-paw"></i>
+            <strong>Pet</strong> updated successfully!
+        </div>
+        <div class="alert alert-danger" ng-show="update_pet_error">
+            <i class="fa fa-frown-o"></i>
+            <strong>Something went wrong !</strong> Please check staff to correct problem
+        </div>
+        <form class="col-md-12" method="post" name="petEditFrm" ng-submit="updatePet()" novalidate ng-show="$root.show_pet_edit">
+            <div class="col-md-6" ng-show="edit_fence">
+                <form name="editFenceFrm" ng-submit="updateFence()">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="fence_name">Tag fence</label>
+                            <input type="text" ng-model="fence_info.fence_name" name="fence_name" id="fence_name" required>
+                            <div ng-messages="editFenceFrm.fence_name.$error" role="alert" multiple ng-if="editFenceFrm.$submitted">
+                                <div ng-message-exp="['required']" class="message-alert">* Please enter fence tag.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-primary" ng-disabled="editFenceFrm.$invalid">
+                            <i class="fa fa-save"></i> Save fence
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6" ng-hide="$root.show_new_pet || edit_fence">
+                <p class="alert alert-danger" ng-show="noMapPetCoordinates()">
+                    <i class="fa fa-map-marker"></i> No map location available
+                </p>
+                <div ng-hide="noMapPetCoordinates()" style="margin-bottom: 10px;">
+                    <div class="col-md-6">
+                        <input type="checkbox" name="my-checkbox"><br>
+                        <small>Show/Hide Fence</small>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="" class="btn btn-primary pull-right" ng-click="edit_fence = true;">
+                            <i class="fa fa-edit"></i> Edit Fence
+                        </a>
+                    </div>
+                </div>
+                <div id="pet_info_map" style="height: 600px; width: 100%;"></div>
+            </div>
+            <div ng-class="{'col-md-6': !$root.show_new_pet, 'col-md-12': $root.show_new_pet}">
+                <div class="form-group">
+                    <label for="name">Name of pet*</label>
+                    <input type="text" ng-model="$root.pet_info.name" class="form-control" name="name" id="name" required autofocus>
+                    <div ng-messages="petEditFrm.name.$error" role="alert" multiple ng-if="petEditFrm.$submitted">
+                        <div ng-message-exp="['required']" class="message-alert">* Please enter name.</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p style="margin: 0 0 7px;">Dog/Cat*</p>
+                    <label class="btn btn-default gray-border col-md-5">
+                        <input type="radio" ng-model="$root.pet_info.dog_cat" ng-value="'dog'">
+                        <img src="assets/images/dog.png">
+                    </label>
+                    <label class="btn btn-default gray-border col-md-5 col-md-offset-1">
+                        <input type="radio" ng-model="$root.pet_info.dog_cat" ng-value="'cat'">
+                        <img src="assets/images/cat.png">
+                    </label>
+                </div>
+                <div class="form-group">
+                    <p style="margin: 0 0 7px;">Gender*</p>
+                    <label class="btn btn-default gray-border col-md-5">
+                        <input type="radio" ng-model="$root.pet_info.gender" ng-value="'boy'"> Boy
+                    </label>
+                    <label class="btn btn-default gray-border col-md-5 col-md-offset-1">
+                        <input type="radio" ng-model="$root.pet_info.gender" ng-value="'girl'"> Girl
+                    </label>
+                </div>
+                <div class="form-group">
+                    <p style="margin: 0 0 7px;">Hunting profile*</p>
+                    <label class="btn btn-default gray-border col-md-5">
+                        <input type="radio" ng-model="$root.pet_info.hunting_profile" ng-value="'on'"> On
+                    </label>
+                    <label class="btn btn-default gray-border col-md-5 col-md-offset-1">
+                        <input type="radio" ng-model="$root.pet_info.hunting_profile" ng-value="'off'"> Off
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label class="btn col-md-6" style="text-align: left;">
+                        <input type="checkbox" ng-model="$root.pet_info.is_enabled_v">
+                        <span style="margin-left: 15px;"> Is enabled ? </span>
+                    </label>
+                    <div class="form-group" style="text-align: right;">
+                        <button type="submit" class="btn btn-primary" ng-disabled="petEditFrm.$invalid">
+                            <i class="fa fa-check"></i> Save
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="file" ng-file-select="onFileSelect($files)" ir="true" tp="pet_info" ts="image" class="col-md-6 pull-left">
+                    <a class="btn pull-left col-md-6" style="text-align: right; padding: 0;" ng-click="$root.pet_info.image = '';" ng-show="$root.pet_info.image">
+                        <i class="fa fa-close"></i> Remove image
+                    </a>
+                    <div class="clearfix"></div>
+                    <div style="border: 1px solid #ccc; border-radius: 5px; background: #fff; padding: 5px; margin-top: 20px;" ng-show="$root.pet_info.image">
+                        <img ng-src="{{$root.pet_info.image}}" class="img-responsive img-thumbnail"><br/>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div id="pet_area_maps" style="height: 600px; width: 100%;" ng-hide="$root.show_pet_edit"></div>
+    </div>
+</div>

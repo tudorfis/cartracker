@@ -1,0 +1,59 @@
+<div class="pt-tab col-md-12">
+    <div class="alert alert-success" ng-show="update_profile_complete">
+        <i class="fa fa-check-circle"></i>
+        <strong>Profile</strong> updated successfully!
+    </div>
+    <form class="col-md-6" method="post" name="profileFrm" ng-submit="updateProfile()" novalidate>
+        <div class="form-group">
+            <label for="surname">Surname</label>
+            <input type="text" ng-model="profile_info.surname" class="form-control" name="surname" id="surname" required autofocus ng-hide="!edit_profile">
+            <span style="margin-left: 10px;" ng-hide="edit_profile">{{profile_info.surname || '-'}}</span>
+            <div ng-messages="profileFrm.surname.$error" role="alert" multiple ng-if="profileFrm.$submitted">
+                <div ng-message-exp="['required']" class="message-alert">* Please enter surname.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" ng-model="profile_info.name" class="form-control" name="name" id="name" required ng-hide="!edit_profile">
+            <span style="margin-left: 10px;" ng-hide="edit_profile">{{profile_info.name || '-'}}</span>
+            <div ng-messages="profileFrm.name.$error" role="alert" multiple ng-if="profileFrm.$submitted">
+                <div ng-message-exp="['required']" class="message-alert">* Please enter name.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">
+                <i class="fa fa-envelope"></i> Email
+            </label>
+            <input type="email" ng-model="profile_info.email" class="form-control" name="email" id="email" required ng-show="edit_profile">
+            <span style="margin-left: 10px;" ng-hide="edit_profile">{{profile_info.email || '-'}}</span>
+            <div ng-messages="profileFrm.email.$error" role="alert" multiple ng-if="profileFrm.$submitted">
+                <div ng-message-exp="['required']" class="message-alert">* Please enter valid email address.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone">
+                <i class="fa fa-phone"></i> Phone
+            </label>
+            <input type="text" ng-model="profile_info.phone" class="form-control" name="phone" id="phone" ng-pattern="/^[0-9\+\-\s]+$/" required ng-show="edit_profile">
+            <span style="margin-left: 10px;" ng-hide="edit_profile">{{profile_info.phone || '-'}}</span>
+            <div ng-messages="profileFrm.phone.$error" role="alert" multiple ng-if="profileFrm.$submitted">
+                <div ng-message-exp="['required', 'pattern']" class="message-alert">* Please enter valid phone number.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="facebook">
+                <i class="fa fa-facebook"></i> Facebook
+            </label>
+            <input type="text" ng-model="profile_info.facebook" class="form-control" name="facebook" id="facebook" ng-show="edit_profile">
+            <span style="margin-left: 10px;" ng-hide="edit_profile">{{profile_info.facebook || '-'}}</span>
+        </div>
+        <div ng-show="edit_profile">
+            <button type="submit" class="btn btn-primary" ng-disabled="profileFrm.$invalid">Save</button>
+            <a class="btn btn-default" ng-click="setEditProfile(false)">Cancel</a>
+        </div>
+        <div ng-show="!edit_profile">
+            <a class="btn btn-primary" ng-click="setEditProfile(true)">Edit</a>
+        </div>
+
+    </form>
+</div>
